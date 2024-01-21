@@ -2,7 +2,7 @@
 - Built using MERN stack.
 
 ---
-### Depencies
+### Dependencies
 - Express
 - Mongoose
 - DotEnv
