@@ -1,15 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from 'axios';
+import { UserContext } from "./UserContext";
 
 
 export default function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const {setUsername:setLoggedInUsername, setId} = useContext(UserContext);
 
     async function register(e) {
         e.preventDefault();
-        await axios.post('/register', {username, password});
-    }
+        const {data} = await axios.post('/register', {username, password})
+        
+        setLoggedInUsername(username);
+        setId(data.id);
+    }   
     
     return (
         <div className="h-screen w-screen flex justify-center items-center">
@@ -18,7 +23,7 @@ export default function Register() {
                     <h1 className="font-bold font-Inter text-[20px]">Register</h1>
                     <p className="font-medium font-Inter text-[15px]">Create account to ChatMate to access all features.</p>
                 </div>
-                <form onScroll={register}>
+                <form onSubmit={register}>
                     <div>
                         <input type="text" 
                             value={username} 
